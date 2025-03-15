@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+
+        input {
+            width: calc(100% - 24px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin-left: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #fff;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+        }
+
+        li button {
+            background-color: #dc3545;
+            padding: 5px 8px;
+            font-size: 14px;
+        }
+
+        li button:first-of-type {
+            background-color: #007bff;
+        }
+
+        #completedTasks li {
+            text-decoration: line-through;
+            color: gray;
+            background-color: #e9ecef;
+        }
+    </style>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <input type="text" id="taskInput" placeholder="Add a new task...">
+        <button onclick="addTask()">Add</button>
+        <ul id="taskList"></ul>
+        <h2>Completed Tasks</h2>
+        <ul id="completedTasks"></ul>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const tasks = [
+                "Check sticky notes & bookmarks",
+                "Get a good LinkedIn (headshot, cover, bio)",
+                "Fix portfolio (add certificates, ensure everything works)",
+                "Create an introductory video",
+                "Fix Uncle T website",
+                "Get 10 recruiters & send them your video, portfolio & resume",
+                "Apply to job sites: ALX, The Room, Arch Saint, Twitter, LinkedIn, Revolut, Wellfound, Forbes BLK community",
+                "Use 1K company list & Google Maps to search for more companies",
+                "Create resumes (Software Dev, Frontend, Full Stack, UI/UX, WordPress, PM, Intern)",
+                "Create LinkedIn & Twitter professional pages",
+                "Join relevant tech & business communities",
+                "Watch YouTube videos on chat & business strategies",
+                "Search LinkedIn daily for HR & apply to jobs",
+                "Reach out to 100 founders (get emails, send video & portfolio)",
+                "Search GitHub, Google Maps & Twitter for companies needing website fixes",
+                "Make a list of 100 US companies in 10 job specialties",
+                "Get a virtual US phone number (Dingtone/Vyke)",
+                "Call businesses & offer website services ($800 per site)",
+                "Make an email list of odd-job companies & offer web design",
+                "Apply to more companies via email",
+                "Finish CheeSpace website",
+                "Fix CheeSpace Instagram (add images, videos, past work)",
+                "Post all completed jobs on Instagram",
+                "Message that guy Obehi sent you for the writing job",
+                "Design Instagram business card campaign (100 packs + bags)",
+                "Send campaigns to WhatsApp groups, Discord, & Instagram TVs",
+                "Post past work & testimonials on FB, Insta, Twitter",
+                "Create an eye-catching campaign poster",
+                "Refine campaign slogan (\"Launch Your Business in 1 Week\")",
+                "Define target audience (small businesses, startups)",
+                "Set up pricing (Basic, Standard, Premium)",
+                "Build 10 website templates (Fashion, Food, Health, Tech, etc.)",
+                "Fix all bugs on your portfolio site",
+                "Create \"Before & After\" posts showcasing redesigns",
+                "Post design work on socials",
+                "Run Facebook & Instagram ads",
+                "Set up payment systems (Paystack, Stripe, etc.)",
+                "Draft contracts & email templates for leads",
+                "Set up a book for looking for a writing job"
+            ];
+
+            const taskList = document.getElementById("taskList");
+            const completedTasks = document.getElementById("completedTasks");
+
+            tasks.forEach(task => addTask(task));
+        });
+
+        function addTask(taskText = null) {
+            const taskInput = document.getElementById("taskInput");
+            const taskList = document.getElementById("taskList");
+            const completedTasks = document.getElementById("completedTasks");
+
+            const task = document.createElement("li");
+            const taskName = taskText || taskInput.value;
+
+            if (!taskName.trim()) return;
+
+            task.innerHTML = `${taskName} <button onclick="completeTask(this)">✅</button> <button onclick="removeTask(this)">❌</button>`;
+            taskList.appendChild(task);
+            if (!taskText) taskInput.value = "";
+        }
+
+        function completeTask(button) {
+            const task = button.parentElement;
+            task.style.textDecoration = "line-through";
+            task.remove();
+            document.getElementById("completedTasks").appendChild(task);
+        }
+
+        function removeTask(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</body>
+
+</html>
